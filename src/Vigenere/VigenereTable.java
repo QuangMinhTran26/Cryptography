@@ -1,22 +1,19 @@
 package Vigenere;
 
 public class VigenereTable {
+    public static void main(String[] args) {
+        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase().toCharArray(); // Convert string to char array
 
-    public static void main(String[] args)
+        int rows = alphabet.length; // Number of rows (same as alphabet length)
 
-    {
-        char[][] exampleArray = new char[3][3];
-        char[][] vigenereTable = new char[26][26];
-        char c = 65;
-        System.out.println(c);
-        for( int i = 0; i < exampleArray.length; i++){
-            for( int j = 0; j < exampleArray[0].length; j++){
-                exampleArray[i][j] = c++;
-                System.out.print(vigenereTable[i][j] + " ");
+        for (int i = 0; i < rows; i++) {
+            // Loop for each row
+            for (int j = 0; j < rows; j++) {
+                // Loop for each element in the row
+                int index = (i + j) % rows; // Calculate rotated index
+                System.out.print(alphabet[index] + " "); // Print character at rotated index
             }
-            System.out.println(" ");
-
+            System.out.println(); // Print newline after each row
         }
-
     }
 }
