@@ -35,12 +35,14 @@ public class VigenereCipher {
         }
 
         if (input.length() > key.length()) {
-            for (int i = 0; i < input.length(); i++) {
+
+            for (int i = 0; i < keystream.length; i++) {
                 keystream[i] = keyToArr[i % key.length()];
             }
 
             result = printCharArray(keystream);
         }
+
 
 
         return result;
@@ -63,7 +65,7 @@ public class VigenereCipher {
     }
 
     public static void main(String[] args) {
-        VigenereCipher cipher = new VigenereCipher("JAVATEST", "HELLO");
+        VigenereCipher cipher = new VigenereCipher("JACK", "ABCDE");
         String generatedKey = cipher.keyGeneration();
         String encryption = cipher.encode(cipher.input, generatedKey);
         System.out.println(encryption);

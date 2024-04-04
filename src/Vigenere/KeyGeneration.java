@@ -19,7 +19,9 @@ public class KeyGeneration {
 
     private String stabilization() {
         String result = "";
+
         char[] keystream = new char[input.length()];
+
         char[] keyToArr = key.toCharArray();
 
         if (input.length() == key.length()) {
@@ -28,6 +30,7 @@ public class KeyGeneration {
 
 
         if (input.length() < key.length()) {
+
             for (int i = 0; i < keystream.length; i++) {
                 keystream[i] = keyToArr[i];
             }
@@ -35,7 +38,8 @@ public class KeyGeneration {
         }
 
         if (input.length() > key.length()) {
-            for (int i = 0; i < input.length(); i++) {
+
+            for (int i = 0; i < keystream.length; i++) {
                 keystream[i] = keyToArr[i % key.length()];
             }
 
@@ -59,12 +63,8 @@ public class KeyGeneration {
 //        }
 //
 
-
-
-
-
     public static void main(String[] args) {
-        KeyGeneration testObj = new KeyGeneration("Jack", "abcde");
+        KeyGeneration testObj = new KeyGeneration("JACKIE", "ABCDEFGHI");
         System.out.print(testObj.stabilization());
     }
 }
