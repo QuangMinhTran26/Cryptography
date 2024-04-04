@@ -35,12 +35,10 @@ public class LengthStabilize {
         }
 
         if (input.length() > key.length()) {
-            for (int i = 0; i < key.length(); i++) {
-                keystream[i] = keyToArr[i];
+            for (int i = 0; i < input.length(); i++) {
+                keystream[i] = keyToArr[i% key.length()];
             }
-            for (int i = key.length(); i < keystream.length; i++) {
-                keystream[i] = keyToArr[i - key.length()];
-            }
+
             result = converter(keystream);
         }
 
