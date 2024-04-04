@@ -10,11 +10,11 @@ public class LengthStabilize {
     }
 
     private String converter(char[] c) {
-        String s = " ";
+        StringBuilder s = new StringBuilder("");
         for (char element : c) {
-            s += element;
+            s.append(element);
         }
-        return s;
+        return s.toString();
     }
 
     private String stabilization() {
