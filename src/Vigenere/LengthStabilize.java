@@ -17,7 +17,7 @@ public class LengthStabilize {
         return s;
     }
 
-    private String stablization() {
+    private String stabilization() {
         String result = "";
         char[] keystream = new char[input.length()];
         char[] keyToArr = key.toCharArray();
@@ -67,6 +67,6 @@ public class LengthStabilize {
 
     public static void main(String[] args) {
         LengthStabilize testObj = new LengthStabilize("Jack", "abcde");
-        System.out.print(testObj.stablization());
+        System.out.print(testObj.stabilization());
     }
 }
