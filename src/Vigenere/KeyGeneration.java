@@ -1,10 +1,10 @@
 package Vigenere;
 
-public class LengthStabilize {
+public class KeyGeneration {
     private String input;
     private String key;
 
-    public LengthStabilize(String input, String key) {
+    public KeyGeneration(String input, String key) {
         this.input = input;
         this.key = key;
     }
@@ -36,7 +36,7 @@ public class LengthStabilize {
 
         if (input.length() > key.length()) {
             for (int i = 0; i < input.length(); i++) {
-                keystream[i] = keyToArr[i% key.length()];
+                keystream[i] = keyToArr[i % key.length()];
             }
 
             result = converter(keystream);
@@ -44,7 +44,7 @@ public class LengthStabilize {
 
 
         return result;
-
+    }
 //        IntelliJ Suggestion
 //        if (input.length() < key.length()) {
 //            System.arraycopy(keyToArr, 0, keystream, 0, keystream.length);
@@ -60,11 +60,11 @@ public class LengthStabilize {
 //
 
 
-    }
+
 
 
     public static void main(String[] args) {
-        LengthStabilize testObj = new LengthStabilize("Jack", "abcde");
+        KeyGeneration testObj = new KeyGeneration("Jack", "abcde");
         System.out.print(testObj.stabilization());
     }
 }
