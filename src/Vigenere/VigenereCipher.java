@@ -9,6 +9,10 @@ public class VigenereCipher {
         this.key = key;
     }
 
+    public String getInput() {
+        return input;
+    }
+
     private String printCharArray(char[] c) {
         StringBuilder s = new StringBuilder("");
         for (char element : c) {
@@ -17,7 +21,7 @@ public class VigenereCipher {
         return s.toString();
     }
 
-    private String keyGeneration() {
+    public String keyGeneration() {
         String result = "";
         char[] keystream = new char[input.length()];
         char[] keyToArr = key.toCharArray();
@@ -47,7 +51,7 @@ public class VigenereCipher {
         return result;
     }
 
-    private String encode(String input, String key) {
+    public String encode(String input, String key) {
         input = input.toUpperCase();
         key = key.toUpperCase();
 
@@ -66,7 +70,7 @@ public class VigenereCipher {
     }
 
     public static void main(String[] args) {
-        VigenereCipher cipher = new VigenereCipher("JACK", "ABCDE");
+        VigenereCipher cipher = new VigenereCipher("jackie", "abcde");
         String generatedKey = cipher.keyGeneration();
         String encryption = cipher.encode(cipher.input, generatedKey);
         System.out.println(encryption);
