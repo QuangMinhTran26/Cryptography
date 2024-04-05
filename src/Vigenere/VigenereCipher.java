@@ -44,11 +44,12 @@ public class VigenereCipher {
         }
 
 
-
         return result;
     }
 
     private String encode(String input, String key) {
+        input = input.toUpperCase();
+        key = key.toUpperCase();
 
         String encodedText = "";
         for (int i = 0; i < input.length(); i++) {
