@@ -14,7 +14,7 @@ public class VigenereCipher {
     }
 
     private String printCharArray(char[] c) {
-        StringBuilder s = new StringBuilder("");
+        StringBuilder s = new StringBuilder();
         for (char element : c) {
             s.append(element);
         }
@@ -26,23 +26,18 @@ public class VigenereCipher {
         char[] keystream = new char[input.length()];
         char[] keyToArr = key.toCharArray();
 
-        if (input.length() == key.length()) {
-            result = key;
-        }
         if (input.length() < key.length()) {
             for (int i = 0; i < keystream.length; i++) {
                 keystream[i] = keyToArr[i];
             }
             result = printCharArray(keystream);
-        }
-        if (input.length() > key.length()) {
-
+        } else if (input.length() > key.length()) {
             for (int i = 0; i < keystream.length; i++) {
                 keystream[i] = keyToArr[i % key.length()];
             }
-
             result = printCharArray(keystream);
-        }
+        } else result = key;
+
         return result;
     }
 
