@@ -13,16 +13,8 @@ public class VigenereCipher {
         return input;
     }
 
-    private String printCharArray(char[] c) {
-        StringBuilder s = new StringBuilder();
-        for (char element : c) {
-            s.append(element);
-        }
-        return s.toString();
-    }
-
     public String keyGeneration() {
-        String result = "";
+        String result;
         char[] keystream = new char[input.length()];
         char[] keyToArr = key.toCharArray();
 
@@ -30,12 +22,12 @@ public class VigenereCipher {
             for (int i = 0; i < keystream.length; i++) {
                 keystream[i] = keyToArr[i];
             }
-            result = printCharArray(keystream);
+            result = new String(keystream);
         } else if (input.length() > key.length()) {
             for (int i = 0; i < keystream.length; i++) {
                 keystream[i] = keyToArr[i % key.length()];
             }
-            result = printCharArray(keystream);
+            result = new String(keystream);
         } else result = key;
 
         return result;
@@ -44,7 +36,7 @@ public class VigenereCipher {
     public String encode(String input, String key) {
         input = input.toUpperCase();
         key = key.toUpperCase();
-        String encodedText = "";
+        StringBuilder encodedText = new StringBuilder();
         for (int i = 0; i < input.length(); i++) {
             // converting in range 0-25
             int x = (input.charAt(i) + key.charAt(i)) % 26;
@@ -52,24 +44,24 @@ public class VigenereCipher {
             // convert into alphabets(ASCII)
             x += 'A';
 
-            encodedText += (char) (x);
+            encodedText.append((char) (x));
         }
-        return encodedText;
+        return encodedText.toString();
     }
 
     public String decode(String input, String key) {
         input = input.toUpperCase();
         key = key.toUpperCase();
-        String decodedText = "";
+        StringBuilder decodedText = new StringBuilder();
         for (int i = 0; i < input.length(); i++) {
             // converting in range 0-25
             int x = (input.charAt(i) - key.charAt(i) + 26) % 26;
 
             // convert into alphabets(ASCII)
             x += 'A';
-            decodedText += (char) (x);
+            decodedText.append((char) (x));
         }
-        return decodedText;
+        return decodedText.toString();
     }
 
     public static void main(String[] args) {
