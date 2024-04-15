@@ -64,15 +64,4 @@ public class VigenereCipher {
         return decodedText.toString();
     }
 
-    public static void main(String[] args) {
-        VigenereCipher cipher = new VigenereCipher("jackie", "abcde");
-        String generatedKey = cipher.keyGeneration();
-        String encryption = cipher.encode(cipher.getInput(), generatedKey);
-        System.out.println(encryption);
-
-        VigenereCipher decryptionEx = new VigenereCipher("johan", "mess");
-        String generatedKey2 = decryptionEx.keyGeneration();
-        String decryption = decryptionEx.decode(decryptionEx.getInput(), generatedKey2);
-        System.out.println(decryption);
-    }
 }

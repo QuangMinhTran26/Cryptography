@@ -37,4 +37,36 @@ class VigenereCipherTest {
         String encryption = cipher.encode(cipher.getInput(), generatedKey);
         assertEquals("VFTHOGRIESIM", encryption);
     }
+
+    @Test
+    void decryption_LowercaseInputAndKey() {
+        VigenereCipher cipher = new VigenereCipher("jbenme", "abcde");
+        String generatedKey = cipher.keyGeneration();
+        String decryption = cipher.decode(cipher.getInput(), generatedKey);
+        assertEquals("JACKIE", decryption);
+    }
+
+    @Test
+    void decryption_UppercaseInputAndKey() {
+        VigenereCipher cipher = new VigenereCipher("LXFOPVEFRNHR", "LEMON");
+        String generatedKey = cipher.keyGeneration();
+        String decryption = cipher.decode(cipher.getInput(), generatedKey);
+        assertEquals("ATTACKATDAWN", decryption);
+    }
+
+    @Test
+    void decryption_LowercaseKey(){
+        VigenereCipher cipher = new VigenereCipher("WTAALMLKHNZ", "orange");
+        String generatedKey = cipher.keyGeneration();
+        String decryption = cipher.decode(cipher.getInput(), generatedKey);
+        assertEquals("ICANFIXTHAT", decryption);
+    }
+
+    @Test
+    void decryption_LowercaseInput(){
+        VigenereCipher cipher = new VigenereCipher("vfthogriesim", "HELLOTHERE");
+        String generatedKey = cipher.keyGeneration();
+        String decryption = cipher.decode(cipher.getInput(), generatedKey);
+        assertEquals("OBIWANKENOBI", decryption);
+    }
 }
