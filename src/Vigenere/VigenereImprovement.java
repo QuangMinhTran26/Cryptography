@@ -1,8 +1,8 @@
 package Vigenere;
 
 public class VigenereImprovement {
-    private String input;
-    private String key;
+    private final String input;
+    private final String key;
 
     public VigenereImprovement(String input, String key) {
         this.input = input;
@@ -20,7 +20,7 @@ public class VigenereImprovement {
     public String alphabeticCheck(String input) {
         for (int i = 0; i < input.length(); i++) {
             if (!Character.isAlphabetic((input.charAt(i)))) {
-                input = input.replace(input.charAt(i), '°'); // there is no empty character, so  acts as a placeholder
+                input = input.replace(input.charAt(i), '°'); // there is no empty character, so ° acts as a placeholder
             }
         }
         input = input.replaceAll("°", "").toUpperCase(); // can not be put in the loop
@@ -38,9 +38,13 @@ public class VigenereImprovement {
         return encodedText.toString();
     }
 
-
-    public static void main(String[] args) {
-
-
+    public String decode(String input, String key) {
+        StringBuilder decodedText = new StringBuilder();
+        input = alphabeticCheck(input);
+        key = alphabeticCheck(key);
+        for (int i = 0; i < input.length(); i++) {
+            decodedText.append((char) ((input.charAt(i) - key.charAt(i % key.length()) + 26) % 26 + 65));
+        }
+        return decodedText.toString();
     }
 }
