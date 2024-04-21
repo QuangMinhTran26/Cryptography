@@ -6,7 +6,10 @@ public class KasiskiTest {
 
     public static void main(String[] args) {
         String ciphertext = "LWFCOSYJYWTWHRYKUGKLHLLOMGMXLPYNABVJJLAWTCVGALUTQBUXLQUKOVZCLRBSNSETPRYPMFDTLEOXSSJILPFLGBULHIBJQBUXJLBAQFJEYIWZQBRTOILLEWTWKMYKQOIBLIOFESITYBMLMRKVSEOTFAZGDIHFUQYTBGBKMUVLPVBSNSETPRYOUFBAPGBKOVNTYITWUHMDYYHKMPVGEAYFZKZGKELSGTMDYFYJQWKTAWYAZKFASIHXPOECTYYKESELPVTMQFJIBRMWDSRCNWNVMJFGEEVDQUVCPGBKFSYTOMYJVSKOAZIJQITWCSYDXWXPUKMLRFVXDMYKASKLHAYAXWTWHRYLIOJMNPUMNSLCKMBJZWTWARYAZWTWZXYZQVZTYSBFQOEVZXQWUZZROINOMGEXJLNNQFXTZWYFTOSTEMWZTOSTUMWZFJVGNIMKQBUPZWCUTBZROXBAQFSXUAYYQBUTZAYYQGUTYZIJYWIAPIALECESLVHPISXTUHYKISXTZHYJNSITPXMZUBKTYQCJXWVVAMWZTOSTUMWZFJVGNIMKQBUPZWQADPVGLMNKJGVXALOFPSIIQEBJQBXTNIHVUSJTTEMUTWETUOUWYDWTUMWZTOSTUMWZFJVGNIMKQBUPZWMAQLJTPXBMZRVGANUZDSEXOVYSDAVTUWWZUQBTUYGMZGQJGILKFCVGLROFPBRROICFQAAPOVBMZRVGABXWEYIXLKYKTOSTPGBFUQYICILYQGJTUAUKPOJLPGBLUUJILMMLIWIHPRXFAQYWPILDMGJIBRMPTSLILRUUTHUXLWYJMFDTLZIFTWVGHYMWUBVQVXMUTOWIZGBAOYVCSEMKFIEHOIOLQBRROXRVUSJTOSYZXSEOBQYJLWKILVHTDWEVLRBWGHVCHGBLISISLRQADRZTZIBSXZVCHYMWDRVMZXUZXIESZXYAZSIQLFYFXOJHLRMAQGFASIHMZGYDLVYFHCDGVXYFWSICIMMRGAJROAUJLSEMOMGEQZYTBXYFMQYIDILVQBNXYHUXGSIHVVAWZRRHZWCWZWVBHPMNQFXTZWYFPOJXZXTAABLCKBQADVRQLREWUBVPUKML";
-        int sequenceLength = 8; // Length of the sequence to search for
+        int sequenceLength = 8;
+
+        double friedman = friedmanTest(ciphertext);
+        System.out.println("Friedman: " + friedman);
 
         Map<String, List<Integer>> results = kasiskiTest(ciphertext, sequenceLength);
 
@@ -17,9 +20,27 @@ public class KasiskiTest {
             System.out.println("Sequence: " + sequence + ", Distances: " + distances);
         }
 
-        // Determine the likely key length
         int keyLength = determineKeyLength(results);
         System.out.println("Likely key length: " + keyLength);
+    }
+
+    public static double friedmanTest(String ciphertext) {
+        int n = ciphertext.length();
+        Map<Character, Double> frequencies = new HashMap<>();
+
+
+        for (char c : ciphertext.toCharArray()) {
+            if (Character.isLetter(c)) {
+                frequencies.put(c, frequencies.getOrDefault(c, 0.0) + 1);
+            }
+        }
+
+        double ic = 0;
+        for (double freq : frequencies.values()) {
+            ic += (freq * (freq - 1)) / (n * (n - 1));
+        }
+
+        return (0.0377 * n) / ((n - 1) * ic - 0.0385 * n + 0.0762);
     }
 
     public static Map<String, List<Integer>> kasiskiTest(String text, int sequenceLength) {
@@ -91,7 +112,7 @@ public class KasiskiTest {
         for (Map.Entry<Integer, Integer> entry : gcdCounts.entrySet()) {
             if (entry.getValue() > maxCount) {
                 maxCount = entry.getValue();
-                likelyKeyLength = entry.getKey() / 2;
+                likelyKeyLength = entry.getKey();
             }
         }
 
@@ -99,11 +120,10 @@ public class KasiskiTest {
     }
 
     public static int gcd(int a, int b) {
-        while (b != 0) {
-            int temp = b;
-            b = a % b;
-            a = temp;
-        }
-        return a;
+        if (b == 0)
+            return a;
+
+        // Recursive call with swapped parameters
+        return gcd(b, a % b);
     }
 }
