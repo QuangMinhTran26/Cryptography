@@ -31,7 +31,6 @@ public class VigenereImprovement {
         StringBuilder encodedText = new StringBuilder();
         input = alphabeticCheck(input);
         key = alphabeticCheck(key);
-
         for (int i = 0; i < input.length(); i++) {
             encodedText.append((char) ((input.charAt(i) + key.charAt(i % key.length())) % 26 + 65));
         }
