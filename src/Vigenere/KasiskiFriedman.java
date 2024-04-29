@@ -1,12 +1,13 @@
 package Vigenere;
 
+
 import java.util.*;
 
 public class KasiskiFriedman {
 
     public static void main(String[] args) {
         String ciphertext = "LWFCOSYJYWTWHRYKUGKLHLLOMGMXLPYNABVJJLAWTCVGALUTQBUXLQUKOVZCLRBSNSETPRYPMFDTLEOXSSJILPFLGBULHIBJQBUXJLBAQFJEYIWZQBRTOILLEWTWKMYKQOIBLIOFESITYBMLMRKVSEOTFAZGDIHFUQYTBGBKMUVLPVBSNSETPRYOUFBAPGBKOVNTYITWUHMDYYHKMPVGEAYFZKZGKELSGTMDYFYJQWKTAWYAZKFASIHXPOECTYYKESELPVTMQFJIBRMWDSRCNWNVMJFGEEVDQUVCPGBKFSYTOMYJVSKOAZIJQITWCSYDXWXPUKMLRFVXDMYKASKLHAYAXWTWHRYLIOJMNPUMNSLCKMBJZWTWARYAZWTWZXYZQVZTYSBFQOEVZXQWUZZROINOMGEXJLNNQFXTZWYFTOSTEMWZTOSTUMWZFJVGNIMKQBUPZWCUTBZROXBAQFSXUAYYQBUTZAYYQGUTYZIJYWIAPIALECESLVHPISXTUHYKISXTZHYJNSITPXMZUBKTYQCJXWVVAMWZTOSTUMWZFJVGNIMKQBUPZWQADPVGLMNKJGVXALOFPSIIQEBJQBXTNIHVUSJTTEMUTWETUOUWYDWTUMWZTOSTUMWZFJVGNIMKQBUPZWMAQLJTPXBMZRVGANUZDSEXOVYSDAVTUWWZUQBTUYGMZGQJGILKFCVGLROFPBRROICFQAAPOVBMZRVGABXWEYIXLKYKTOSTPGBFUQYICILYQGJTUAUKPOJLPGBLUUJILMMLIWIHPRXFAQYWPILDMGJIBRMPTSLILRUUTHUXLWYJMFDTLZIFTWVGHYMWUBVQVXMUTOWIZGBAOYVCSEMKFIEHOIOLQBRROXRVUSJTOSYZXSEOBQYJLWKILVHTDWEVLRBWGHVCHGBLISISLRQADRZTZIBSXZVCHYMWDRVMZXUZXIESZXYAZSIQLFYFXOJHLRMAQGFASIHMZGYDLVYFHCDGVXYFWSICIMMRGAJROAUJLSEMOMGEQZYTBXYFMQYIDILVQBNXYHUXGSIHVVAWZRRHZWCWZWVBHPMNQFXTZWYFPOJXZXTAABLCKBQADVRQLREWUBVPUKML";
-        int sequenceLength = 8;
+        int sequenceLength = 5;
 
         double friedman = friedmanTest(ciphertext);
         System.out.println("Friedman: " + friedman);
@@ -66,6 +67,10 @@ public class KasiskiFriedman {
         }
 
         // Calculate distances between occurrences
+        return getDistance(filteredResults);
+    }
+
+    private static Map<String, List<Integer>> getDistance(Map<String, List<Integer>> filteredResults) {
         Map<String, List<Integer>> distances = new HashMap<>();
         for (Map.Entry<String, List<Integer>> entry : filteredResults.entrySet()) {
             String sequence = entry.getKey();
@@ -77,46 +82,33 @@ public class KasiskiFriedman {
             }
             distances.put(sequence, distanceList);
         }
-
         return distances;
     }
 
+
     public static int determineKeyLength(Map<String, List<Integer>> distances) {
-        Set<Integer> gcds = new HashSet<>();
+        Set<Integer> gcds = new HashSet<>(); //Set will eliminate duplicates, only save unique values
 
-        // Calculate greatest common divisors (GCDs) of distances
-        for (List<Integer> distanceList : distances.values()) {
-            for (int i = 0; i < distanceList.size() - 1; i++) {
-                for (int j = i + 1; j < distanceList.size(); j++) {
-                    int gcd = gcd(distanceList.get(i), distanceList.get(j));
-                    if (gcd > 1) {
-                        gcds.add(gcd);
-                    }
-                }
-            }
+        // Copy all the entries of the List<Integer> distances to my new Set
+        for (List<Integer> list : distances.values()) {
+            gcds.addAll(list);
         }
-
         // Find the most common divisor
-        Map<Integer, Integer> gcdCounts = new HashMap<>();
-        for (int gcd : gcds) {
-            if (gcdCounts.containsKey(gcd)) {
-                gcdCounts.put(gcd, gcdCounts.get(gcd) + 1);
-            } else {
-                gcdCounts.put(gcd, 1);
-            }
+        int[] setToArray = gcds.stream().mapToInt(i -> i).toArray();
+        return findGCDArray(setToArray);
+    }
+
+    public static int findGCDArray(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
         }
 
-        // Determine the likely key length based on the most common divisor
-        int maxCount = 0;
-        int likelyKeyLength = 0;
-        for (Map.Entry<Integer, Integer> entry : gcdCounts.entrySet()) {
-            if (entry.getValue() > maxCount) {
-                maxCount = entry.getValue();
-                likelyKeyLength = entry.getKey();
-            }
+        int result = nums[0];
+        for (int num : nums) {
+            result = gcd(result, num);
         }
 
-        return likelyKeyLength;
+        return result;
     }
 
     public static int gcd(int a, int b) {
