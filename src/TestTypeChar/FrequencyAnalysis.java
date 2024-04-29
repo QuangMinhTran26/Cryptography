@@ -15,9 +15,9 @@ public class FrequencyAnalysis {
                 occurrence.put(c, 1);
             }
         }
-        for (char c : strArray) {
-            percentage.put(c, (float) occurrence.get(c) * 100 / 310);
-        }
+//        for (char c : strArray) {
+//            percentage.put(c, (float) occurrence.get(c) * 100 / 310);
+//        }
         for (HashMap.Entry entry : percentage.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue());
         }
@@ -31,7 +31,7 @@ public class FrequencyAnalysis {
         System.out.println("The result of frequency analysis of " + text + " is as followed");
         frequencyReport(text);
         String onlyCharacter = text.replaceAll("\\s+", "").replaceAll("\\.", "").replaceAll("\\,", "");
-        System.out.println(onlyCharacter.toUpperCase());
+        System.out.println(onlyCharacter.length());
 
     }
 }
