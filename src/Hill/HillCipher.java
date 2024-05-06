@@ -75,6 +75,31 @@ public class HillCipher {
         return String.valueOf(flattenedArr);
     }
 
+    public double[][] invertMatrix(int[][] matrix) {
+        double a = matrix[0][0];
+        double b = matrix[0][1];
+        double c = matrix[1][0];
+        double d = matrix[1][1];
+
+        double lowerDetA = a * d - b * c;
+        double detA = 1 / (a * d - b * c);
+
+        double[][] inverted = new double[2][2];
+        inverted[0][0] = d;
+        inverted[0][1] = -b;
+        inverted[1][0] = -c;
+        inverted[1][1] = a;
+
+        for (int i = 0; i < inverted.length; i++) {
+            for (int j = 0; j < inverted[0].length; j++) {
+                inverted[i][j] = detA * inverted[i][j];
+            }
+        }
+        
+
+        return inverted;
+    }
+
     public static void main(String[] args) {
         HillCipher testObject = new HillCipher();
         char[][] key = {{'H', 'I'}, {'L', 'L'}};
