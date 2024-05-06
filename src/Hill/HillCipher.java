@@ -2,7 +2,7 @@ package Hill;
 
 public class HillCipher {
 
-
+    // Mat is short for Matrix
     public int[][] charArrayToInteger(char[][] charMat) {
         int[][] numMat = new int[charMat.length][charMat[0].length];
         for (int i = 0; i < numMat.length; i++) {
@@ -25,6 +25,18 @@ public class HillCipher {
         return charMat;
     }
 
+    public int[][] textTo2DArray(String plaintext) {
+        int[][] result = new int[2][plaintext.length() / 2];
+        char[] plainArr = plaintext.replaceAll(" ", "").toUpperCase().toCharArray();
+        for (int i = 0; i < result.length; i++) {
+            for (int j = 0; j < result[0].length; j++) {
+                result[i][j] = (plainArr[(j * 2 + i) % plainArr.length] + 'A') % 26;
+            }
+        }
+
+        return result;
+    }
+
     // Matrix multiplication is not commutative, so oder has to be key * 2dArray
     public int[][] matrixMultiplication(int[][] key, int[][] link) {
 
@@ -45,16 +57,9 @@ public class HillCipher {
         return result;
     }
 
+
     public String hillEncoder(String plaintext, char[][] charMat) {
-        int[][] plainMat = new int[charMat.length][plaintext.length() / 2];
-        char[] plainArr = plaintext.replaceAll(" ", "").toUpperCase().toCharArray();
-
-        for (int i = 0; i < plainMat.length; i++) { // rows
-            for (int j = 0; j < plainMat[0].length; j++) { // columns
-                plainMat[i][j] = (plainArr[(j * 2 + i) % plainArr.length] + 'A') % 26; // iterate through the length of the plain text, even INDEX goes to first row, odd index goes to second
-            }
-        }
-
+        int[][] plainMat = textTo2DArray(plaintext);
         int[][] key = charArrayToInteger(charMat); // convert key to int array
         int[][] encryptedArr = matrixMultiplication(key, plainMat); // does matrix multiplication between key and plaintext array, result integer array
         for (int i = 0; i < encryptedArr.length; i++) {
@@ -75,29 +80,48 @@ public class HillCipher {
         return String.valueOf(flattenedArr);
     }
 
-    public double[][] invertMatrix(int[][] matrix) {
-        double a = matrix[0][0];
-        double b = matrix[0][1];
-        double c = matrix[1][0];
-        double d = matrix[1][1];
+    public int[][] invertMatrix(int[][] matrix) {
+        int a = matrix[0][0];
+        int b = matrix[0][1];
+        int c = matrix[1][0];
+        int d = matrix[1][1];
 
-        double lowerDetA = a * d - b * c;
-        double detA = 1 / (a * d - b * c);
+        // find ad-bc, then find multiplicative inverse of this mod 26, then takes result multiply with adjoin matrix
+        int k = a * d - b * c;
+        int mInverse = determineMultiplicativeInverse26(k);
 
-        double[][] inverted = new double[2][2];
+        int[][] inverted = new int[matrix.length][matrix[0].length];
         inverted[0][0] = d;
         inverted[0][1] = -b;
         inverted[1][0] = -c;
         inverted[1][1] = a;
 
+        //K^(-1) = 1/|K| * adjoin(K)
         for (int i = 0; i < inverted.length; i++) {
             for (int j = 0; j < inverted[0].length; j++) {
-                inverted[i][j] = detA * inverted[i][j];
+                inverted[i][j] = inverted[i][j] * mInverse;
+                if (inverted[i][j] < 0) {
+                    inverted[i][j] = inverted[i][j] + 26;
+                }
             }
         }
-        
-
         return inverted;
+    }
+
+    public String hillDecoder(String plaintext, int[][] key) {
+        int[][] invertedKey = invertMatrix(key);
+        int[][] encoded
+        return "";
+    }
+
+
+    public int determineMultiplicativeInverse26(int num) {
+        int mInverse = 1;
+        while ((mInverse * num) % 26 != 1) {
+            mInverse++;
+            if ((mInverse * num) % 26 == 1) break;
+        }
+        return mInverse;
     }
 
     public static void main(String[] args) {
