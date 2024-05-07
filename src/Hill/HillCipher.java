@@ -37,8 +37,14 @@ public class HillCipher {
     }
 
     public String flattenArray(char[][] input) {
-
-        return "";
+        char[] text = new char[input[0].length * input.length];
+        int index = 0;
+        for (int i = 0; i < input[0].length; i++) {
+            for (int j = 0; j < input.length; j++) {
+                text[index++] = input[j][i];
+            }
+        }
+        return String.valueOf(text);
     }
 
     // Matrix multiplication is not commutative, so oder has to be key * 2dArray
@@ -61,6 +67,14 @@ public class HillCipher {
         return result;
     }
 
+    public int determineMultiplicativeInverse26(int num) {
+        int mInverse = 1;
+        while ((mInverse * num) % 26 != 1) {
+            mInverse++;
+            if ((mInverse * num) % 26 == 1) break;
+        }
+        return mInverse;
+    }
 
     public String hillEncoder(String plaintext, char[][] charMat) {
         int[][] plainMat = textTo2DArray(plaintext);
@@ -73,15 +87,7 @@ public class HillCipher {
         }
 
         char[][] textArr = intArrayToChar(encryptedInt); // convert matrix multiplication result to char array
-        int counter = 0;
-        char[] flattenedArr = new char[textArr.length * textArr[0].length]; //flat this array, pay attention to its special loop please
-        for (int i = 0; i < textArr[0].length; i++) {
-            for (int j = 0; j < textArr.length; j++) {
-                flattenedArr[counter++] = textArr[j][i];
-            }
-        }
-
-        return String.valueOf(flattenedArr);
+        return flattenArray(textArr);
     }
 
     public int[][] invertMatrix(int[][] matrix) {
@@ -123,26 +129,8 @@ public class HillCipher {
             }
         }
         char[][] textArr = intArrayToChar(decryptedInt);
-        int counter = 0;
-        char[] flattenedArr = new char[textArr.length * textArr[0].length]; //flat this array, pay attention to its special loop please
-        for (int i = 0; i < textArr[0].length; i++) {
-            for (int j = 0; j < textArr.length; j++) {
-                flattenedArr[counter++] = textArr[j][i];
-            }
-        }
-
-        return String.valueOf(flattenedArr);
+        return flattenArray(textArr);
     }
 
-
-    public int determineMultiplicativeInverse26(int num) {
-        int mInverse = 1;
-        while ((mInverse * num) % 26 != 1) {
-            mInverse++;
-            if ((mInverse * num) % 26 == 1) break;
-        }
-        return mInverse;
-    }
-    
 }
 
