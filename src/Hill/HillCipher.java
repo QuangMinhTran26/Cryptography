@@ -33,8 +33,12 @@ public class HillCipher {
                 result[i][j] = (plainArr[(j * 2 + i) % plainArr.length] + 'A') % 26;
             }
         }
-
         return result;
+    }
+
+    public String flattenArray(char[][] input) {
+
+        return "";
     }
 
     // Matrix multiplication is not commutative, so oder has to be key * 2dArray
@@ -61,14 +65,14 @@ public class HillCipher {
     public String hillEncoder(String plaintext, char[][] charMat) {
         int[][] plainMat = textTo2DArray(plaintext);
         int[][] key = charArrayToInteger(charMat); // convert key to int array
-        int[][] encryptedArr = matrixMultiplication(key, plainMat); // does matrix multiplication between key and plaintext array, result integer array
-        for (int i = 0; i < encryptedArr.length; i++) {
-            for (int j = 0; j < encryptedArr[0].length; j++) {
-                encryptedArr[i][j] = encryptedArr[i][j] % 26;
+        int[][] encryptedInt = matrixMultiplication(key, plainMat); // does matrix multiplication between key and plaintext array, result integer array
+        for (int i = 0; i < encryptedInt.length; i++) {
+            for (int j = 0; j < encryptedInt[0].length; j++) {
+                encryptedInt[i][j] = encryptedInt[i][j] % 26;
             }
         }
 
-        char[][] textArr = intArrayToChar(encryptedArr); // convert matrix multiplication result to char array
+        char[][] textArr = intArrayToChar(encryptedInt); // convert matrix multiplication result to char array
         int counter = 0;
         char[] flattenedArr = new char[textArr.length * textArr[0].length]; //flat this array, pay attention to its special loop please
         for (int i = 0; i < textArr[0].length; i++) {
@@ -88,6 +92,7 @@ public class HillCipher {
 
         // find ad-bc, then find multiplicative inverse of this mod 26, then takes result multiply with adjoin matrix
         int k = a * d - b * c;
+        if (k < 0) k = k + 26; //deal with negative number mod 26
         int mInverse = determineMultiplicativeInverse26(k);
 
         int[][] inverted = new int[matrix.length][matrix[0].length];
@@ -110,8 +115,23 @@ public class HillCipher {
 
     public String hillDecoder(String plaintext, int[][] key) {
         int[][] invertedKey = invertMatrix(key);
-        int[][] encoded
-        return "";
+        int[][] cipherArr = textTo2DArray(plaintext);
+        int[][] decryptedInt = matrixMultiplication(invertedKey, cipherArr);
+        for (int i = 0; i < decryptedInt.length; i++) {
+            for (int j = 0; j < decryptedInt[0].length; j++) {
+                decryptedInt[i][j] = decryptedInt[i][j] % 26;
+            }
+        }
+        char[][] textArr = intArrayToChar(decryptedInt);
+        int counter = 0;
+        char[] flattenedArr = new char[textArr.length * textArr[0].length]; //flat this array, pay attention to its special loop please
+        for (int i = 0; i < textArr[0].length; i++) {
+            for (int j = 0; j < textArr.length; j++) {
+                flattenedArr[counter++] = textArr[j][i];
+            }
+        }
+
+        return String.valueOf(flattenedArr);
     }
 
 
@@ -123,11 +143,6 @@ public class HillCipher {
         }
         return mInverse;
     }
-
-    public static void main(String[] args) {
-        HillCipher testObject = new HillCipher();
-        char[][] key = {{'H', 'I'}, {'L', 'L'}};
-        System.out.print(testObject.hillEncoder("short example", key));
-    }
+    
 }
 
