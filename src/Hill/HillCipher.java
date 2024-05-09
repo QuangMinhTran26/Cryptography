@@ -26,8 +26,12 @@ public class HillCipher {
     }
 
     public int[][] textTo2DArray(String plaintext) {
+        plaintext = plaintext.replaceAll(" ", "").toUpperCase();
+        if (plaintext.length() % 2 != 0) {
+            plaintext = plaintext + 'A';
+        }
         int[][] result = new int[2][plaintext.length() / 2];
-        char[] plainArr = plaintext.replaceAll(" ", "").toUpperCase().toCharArray();
+        char[] plainArr = plaintext.toCharArray();
         for (int i = 0; i < result.length; i++) {
             for (int j = 0; j < result[0].length; j++) {
                 result[i][j] = (plainArr[(j * 2 + i)] + 'A') % 26;
@@ -52,7 +56,6 @@ public class HillCipher {
 
         int sourceRows = key.length;
         int sourceColumns = key[0].length;
-        int keyRows = link.length;
         int keyColumns = link[0].length;
 
         int[][] result = new int[sourceRows][keyColumns];
@@ -67,19 +70,7 @@ public class HillCipher {
         return result;
     }
 
-    public int determineMultiplicativeInverse26(int num) {
-        int mInverse = 1;
-        while ((mInverse * num) % 26 != 1) {
-            mInverse++;
-            if ((mInverse * num) % 26 == 1) break;
-        }
-        return mInverse;
-    }
-
     public String hillEncoder(String plaintext, char[][] charMat) {
-        if (plaintext.length() % 2 != 0) {
-            plaintext = plaintext + 'A';
-        }
         int[][] plainMat = textTo2DArray(plaintext);
         int[][] key = charArrayToInteger(charMat); // convert String key to int array
         int[][] encryptedInt = matrixMultiplication(key, plainMat); // does matrix multiplication between key and plaintext array, result integer array
@@ -101,8 +92,8 @@ public class HillCipher {
 
         // find ad-bc, then find multiplicative inverse of this mod 26, then takes result multiply with adjoin matrix
         int k = a * d - b * c;
-        if (k < 0) k = k + 26; //deal with negative number mod 26
-        int mInverse = determineMultiplicativeInverse26(k);
+        k = step26(k); //deal with negative number mod 26, would that be the case
+        int mInverse = multiplicativeInverse26(k);
 
         int[][] inverted = new int[matrix.length][matrix[0].length];
         inverted[0][0] = d;
@@ -113,13 +104,30 @@ public class HillCipher {
         //K^(-1) = 1/|K| * adjoin(K)
         for (int i = 0; i < inverted.length; i++) {
             for (int j = 0; j < inverted[0].length; j++) {
-                inverted[i][j] = inverted[i][j] * mInverse;
-                if (inverted[i][j] < 0) {
-                    inverted[i][j] = inverted[i][j] + 26;
-                }
+                inverted[i][j] = step26(inverted[i][j] * mInverse) % 26;
             }
         }
         return inverted;
+    }
+
+    public int multiplicativeInverse26(int num) {
+        int mInverse = 1;
+        while ((mInverse * num) % 26 != 1) {
+            mInverse++;
+        }
+        return mInverse;
+    }
+
+    // when a number is < -26, then add a certain amount of step 26 so that it becomes >= 0
+    public int step26(int num) {
+        if (num < 0) {
+            int result = num + 26;
+            while (result < 0) {
+                result += 26;
+            }
+            return result;
+        } else return num;
+
     }
 
     public String hillDecoder(String plaintext, int[][] key) {
@@ -140,7 +148,6 @@ public class HillCipher {
 //        char[][] key = {{'H', 'I'}, {'L', 'L'}};
 //        System.out.println(testObject.hillEncoder("short example", key));
 //
-//        HillCipher decryption = new HillCipher();
 //        String cipherText = "KSEXZZGHETHFXTCKJWFRWDEBKTNQKTGUQNIECCQYYQIPYLDWLHUCJRZZFVSYKKGUSFRNKTGOTACCRZCUVOCKPIXTLHFRPDBNLHNNSTTPDJMGHXPPWDFSYOESXECUVOWSKXHHSPLTCUVOROJBPJANHFIIGOLHKSEXZZGHETHFXTCKJWHHUCAKCCEWCPCUVOGFMVCCRJMZYLPILHANGUSFZRIPJWLHCVVELHEBIRWSJRLHKEODGJLHKSXQPPWDJBMUYJIRCCQYKTCUCVGOHFCGVEAWETHFSPNVIALHYFCUPFDJTNXTWQEMZNLHKEODGJKGTCBXMBHFSRWSPCWLGOIPUIIHKRJWMRKXWSJRWSYLWQVIDJEBDMKRSYLHTQVVKTMZMVGGVOAWCDMZCIYHNDHZBTFFYOESIPATWSCPWDLUCDANCVAEHQXTMRJWXTICKEFSYQHFLHKSEXXTHXPPIPCPSZQOQMXTYQQYIVJWKSXQIAGOMBHFINAJHFWLSFLH";
 //        int[][] key2 = {{6, 3}, {5, 3}};
 //        System.out.print(testObject.hillDecoder(cipherText, key2));
