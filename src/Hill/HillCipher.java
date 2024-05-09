@@ -30,7 +30,7 @@ public class HillCipher {
         char[] plainArr = plaintext.replaceAll(" ", "").toUpperCase().toCharArray();
         for (int i = 0; i < result.length; i++) {
             for (int j = 0; j < result[0].length; j++) {
-                result[i][j] = (plainArr[(j * 2 + i) % plainArr.length] + 'A') % 26;
+                result[i][j] = (plainArr[(j * 2 + i)] + 'A') % 26;
             }
         }
         return result;
@@ -132,5 +132,15 @@ public class HillCipher {
         return flattenArray(textArr);
     }
 
+//    public static void main(String[] args) {
+//        HillCipher testObject = new HillCipher();
+//        char[][] key = {{'H', 'I'}, {'L', 'L'}};
+//        System.out.println(testObject.hillEncoder("short example", key));
+//
+//        HillCipher decryption = new HillCipher();
+//        String cipherText = "KSEXZZGHETHFXTCKJWFRWDEBKTNQKTGUQNIECCQYYQIPYLDWLHUCJRZZFVSYKKGUSFRNKTGOTACCRZCUVOCKPIXTLHFRPDBNLHNNSTTPDJMGHXPPWDFSYOESXECUVOWSKXHHSPLTCUVOROJBPJANHFIIGOLHKSEXZZGHETHFXTCKJWHHUCAKCCEWCPCUVOGFMVCCRJMZYLPILHANGUSFZRIPJWLHCVVELHEBIRWSJRLHKEODGJLHKSXQPPWDJBMUYJIRCCQYKTCUCVGOHFCGVEAWETHFSPNVIALHYFCUPFDJTNXTWQEMZNLHKEODGJKGTCBXMBHFSRWSPCWLGOIPUIIHKRJWMRKXWSJRWSYLWQVIDJEBDMKRSYLHTQVVKTMZMVGGVOAWCDMZCIYHNDHZBTFFYOESIPATWSCPWDLUCDANCVAEHQXTMRJWXTICKEFSYQHFLHKSEXXTHXPPIPCPSZQOQMXTYQQYIVJWKSXQIAGOMBHFINAJHFWLSFLH";
+//        int[][] key2 = {{6, 3}, {5, 3}};
+//        System.out.print(testObject.hillDecoder(cipherText, key2));
+//    }
 }
 
