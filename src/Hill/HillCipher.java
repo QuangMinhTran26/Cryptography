@@ -77,6 +77,9 @@ public class HillCipher {
     }
 
     public String hillEncoder(String plaintext, char[][] charMat) {
+        if (plaintext.length() % 26 != 0) {
+            plaintext = plaintext + 'A';
+        }
         int[][] plainMat = textTo2DArray(plaintext);
         int[][] key = charArrayToInteger(charMat); // convert key to int array
         int[][] encryptedInt = matrixMultiplication(key, plainMat); // does matrix multiplication between key and plaintext array, result integer array
