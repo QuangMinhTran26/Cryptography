@@ -2,6 +2,17 @@ package Hill;
 
 public class HillCipher {
 
+    // when a number is < -26, then add a certain amount of step 26 so that it becomes >= 0
+    public int step26(int num) {
+        if (num < 0) {
+            int result = num + 26;
+            while (result < 0) {
+                result += 26;
+            }
+            return result;
+        } else return num;
+    }
+
     // Mat is short for Matrix
     public int[][] charArrayToInteger(char[][] charMat) {
         int[][] numMat = new int[charMat.length][charMat[0].length];
@@ -17,9 +28,7 @@ public class HillCipher {
         char[][] charMat = new char[intMat.length][intMat[0].length];
         for (int i = 0; i < charMat.length; i++) {
             for (int j = 0; j < charMat[0].length; j++) {
-                if (intMat[i][j] >= 0) {
-                    charMat[i][j] = (char) (intMat[i][j] % 26 + 'A');
-                } else charMat[i][j] = (char) ((intMat[i][j] + 26) % 26 + 'A');
+                charMat[i][j] = (char) (step26(intMat[i][j]) % 26 + 'A');
             }
         }
         return charMat;
@@ -116,18 +125,6 @@ public class HillCipher {
             mInverse++;
         }
         return mInverse;
-    }
-
-    // when a number is < -26, then add a certain amount of step 26 so that it becomes >= 0
-    public int step26(int num) {
-        if (num < 0) {
-            int result = num + 26;
-            while (result < 0) {
-                result += 26;
-            }
-            return result;
-        } else return num;
-
     }
 
     public String hillDecoder(String plaintext, int[][] key) {
