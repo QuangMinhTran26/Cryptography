@@ -28,7 +28,7 @@ public class CaesarCipher implements Cipher<Integer> {
         StringBuilder encodedText = new StringBuilder();
         input = alphabeticCheck(input);
         for (int i = 0; i < input.length(); i++) {
-            encodedText.append((char) ((input.charAt(i) - 'A' + key) % 26 + 65));
+            encodedText.append((char) (step26(input.charAt(i) - 'A' + key) % 26 + 65));
         }
         return encodedText.toString();
     }
@@ -38,7 +38,7 @@ public class CaesarCipher implements Cipher<Integer> {
         StringBuilder decodedText = new StringBuilder();
         input = alphabeticCheck(input);
         for (int i = 0; i < input.length(); i++) {
-            decodedText.append((char) (step26((input.charAt(i) - 'A' - key)) % 26 + 65));
+            decodedText.append((char) (step26(input.charAt(i) - 'A' - key) % 26 + 65));
         }
         return decodedText.toString();
     }
