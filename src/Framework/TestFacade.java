@@ -9,5 +9,7 @@ public class TestFacade {
         System.out.println(test.encodeWithHill("short example", key1));
         int[][] key2 = {{2, 3}, {3, 6}};
         System.out.println(test.decodeWithHill("FKMFIO", key2));
+        System.out.println(test.encodeWithCaesar("caesar", 3));
+        System.out.println(test.decodeWithCaesar("KHUHBHVZHUHJUHHQ", 3));
     }
 }
