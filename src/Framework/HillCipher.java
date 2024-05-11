@@ -1,7 +1,7 @@
-package Hill;
+package Framework;
 
 @SuppressWarnings("DuplicatedCode")
-public class HillCipher {
+public class HillCipher implements Cipher<int[][]> {
 
     // when a number is < -26, then add a certain amount of step 26 so that it becomes >= 0
     public int step26(int num) {
@@ -80,9 +80,9 @@ public class HillCipher {
         return result;
     }
 
-    public String hillEncoder(String plaintext, char[][] charMat) {
+    @Override
+    public String encode(String plaintext, int[][] key) {
         int[][] plainMat = textTo2dIntArray(plaintext);
-        int[][] key = charArrayToInteger(charMat); // convert String key to int array
         int[][] encryptedInt = matrixMultiplication(key, plainMat); // does matrix multiplication between key and plaintext array, result integer array
         for (int i = 0; i < encryptedInt.length; i++) {
             for (int j = 0; j < encryptedInt[0].length; j++) {
@@ -128,7 +128,8 @@ public class HillCipher {
         return mInverse;
     }
 
-    public String hillDecoder(String plaintext, int[][] key) {
+    @Override
+    public String decode(String plaintext, int[][] key) {
         int[][] invertedKey = invertMatrix(key);
         int[][] cipherArr = textTo2dIntArray(plaintext);
         int[][] decryptedInt = matrixMultiplication(invertedKey, cipherArr);
@@ -141,14 +142,5 @@ public class HillCipher {
         return flattenArray(textArr);
     }
 
-//    public static void main(String[] args) {
-//        HillCipher testObject = new HillCipher();
-//        char[][] key = {{'H', 'I'}, {'L', 'L'}};
-//        System.out.println(testObject.hillEncoder("short example", key));
-//
-//        String cipherText = "KSEXZZGHETHFXTCKJWFRWDEBKTNQKTGUQNIECCQYYQIPYLDWLHUCJRZZFVSYKKGUSFRNKTGOTACCRZCUVOCKPIXTLHFRPDBNLHNNSTTPDJMGHXPPWDFSYOESXECUVOWSKXHHSPLTCUVOROJBPJANHFIIGOLHKSEXZZGHETHFXTCKJWHHUCAKCCEWCPCUVOGFMVCCRJMZYLPILHANGUSFZRIPJWLHCVVELHEBIRWSJRLHKEODGJLHKSXQPPWDJBMUYJIRCCQYKTCUCVGOHFCGVEAWETHFSPNVIALHYFCUPFDJTNXTWQEMZNLHKEODGJKGTCBXMBHFSRWSPCWLGOIPUIIHKRJWMRKXWSJRWSYLWQVIDJEBDMKRSYLHTQVVKTMZMVGGVOAWCDMZCIYHNDHZBTFFYOESIPATWSCPWDLUCDANCVAEHQXTMRJWXTICKEFSYQHFLHKSEXXTHXPPIPCPSZQOQMXTYQQYIVJWKSXQIAGOMBHFINAJHFWLSFLH";
-//        int[][] key2 = {{6, 3}, {5, 3}};
-//        System.out.print(testObject.hillDecoder(cipherText, key2));
-//    }
 }
 
