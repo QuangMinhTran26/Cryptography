@@ -35,6 +35,7 @@ public class HillCipher {
         return charMat;
     }
 
+    //can also use flattenArray, check TestType
     public int[][] textTo2dIntArray(String plaintext) {
         plaintext = plaintext.replaceAll(" ", "").toUpperCase();
         if (plaintext.length() % 2 != 0) {
@@ -50,15 +51,15 @@ public class HillCipher {
         return result;
     }
 
-    public String flattenArray(char[][] input) {
+    public String print2dArrayAsString(char[][] input) {
         char[] text = new char[input[0].length * input.length];
-        int index = 0;
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < input[0].length; i++) {
             for (int j = 0; j < input.length; j++) {
-                text[index++] = input[j][i];
+                result.append(input[j][i]);
             }
         }
-        return String.valueOf(text);
+        return result.toString();
     }
 
     // Matrix multiplication is not commutative, so oder has to be key * 2dArray
@@ -91,7 +92,7 @@ public class HillCipher {
         }
 
         char[][] textArr = intArrayToChar(encryptedInt); // convert matrix multiplication result to char array
-        return flattenArray(textArr);
+        return print2dArrayAsString(textArr);
     }
 
     public int[][] invertMatrixMod26(int[][] matrix) {
@@ -138,7 +139,7 @@ public class HillCipher {
             }
         }
         char[][] textArr = intArrayToChar(decryptedInt);
-        return flattenArray(textArr);
+        return print2dArrayAsString(textArr);
     }
 
 //    public static void main(String[] args) {
