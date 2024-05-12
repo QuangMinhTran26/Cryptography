@@ -50,6 +50,7 @@ public class HillCipher implements Cipher<int[][]> {
         return result;
     }
 
+    //Or use StringBuilder, check Hill
     public String flattenArray(char[][] input) {
         char[] text = new char[input[0].length * input.length];
         int index = 0;

@@ -35,7 +35,7 @@ public class HillCipher {
         return charMat;
     }
 
-    //can also use flattenArray, check TestType
+
     public int[][] textTo2dIntArray(String plaintext) {
         plaintext = plaintext.replaceAll(" ", "").toUpperCase();
         if (plaintext.length() % 2 != 0) {
@@ -51,6 +51,7 @@ public class HillCipher {
         return result;
     }
 
+    //can also use flattenArray, check TestType
     public String print2dArrayAsString(char[][] input) {
         char[] text = new char[input[0].length * input.length];
         StringBuilder result = new StringBuilder();

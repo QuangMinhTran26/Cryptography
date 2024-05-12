@@ -37,5 +37,8 @@ public class CipherFacade {
         return caesarCipher.decode(input, key);
     }
 
+    public String encodeWithBase64(String input) {
+        return base64.encode(input);
+    }
 
 }
