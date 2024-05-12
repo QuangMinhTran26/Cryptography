@@ -94,7 +94,7 @@ public class HillCipher {
         return flattenArray(textArr);
     }
 
-    public int[][] invertMatrix(int[][] matrix) {
+    public int[][] invertMatrixMod26(int[][] matrix) {
         int a = matrix[0][0];
         int b = matrix[0][1];
         int c = matrix[1][0];
@@ -129,7 +129,7 @@ public class HillCipher {
     }
 
     public String hillDecoder(String plaintext, int[][] key) {
-        int[][] invertedKey = invertMatrix(key);
+        int[][] invertedKey = invertMatrixMod26(key);
         int[][] cipherArr = textTo2dIntArray(plaintext);
         int[][] decryptedInt = matrixMultiplication(invertedKey, cipherArr);
         for (int i = 0; i < decryptedInt.length; i++) {
