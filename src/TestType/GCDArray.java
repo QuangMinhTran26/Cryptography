@@ -1,4 +1,4 @@
-package TestTypeChar;
+package TestType;
 
 public class GCDArray {
     public static int findGCDArray(int[] nums) {

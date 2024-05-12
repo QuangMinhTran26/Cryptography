@@ -1,4 +1,4 @@
-package TestTypeChar;
+package TestType;
 
 public class DivisionInteger {
     public static void main(String[] args) {

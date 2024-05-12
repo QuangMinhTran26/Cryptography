@@ -1,4 +1,4 @@
-package TestTypeChar;
+package TestType;
 
 public class AlphabeticCheck {
     private static void printArray(char[] arr) {

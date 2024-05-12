@@ -1,4 +1,4 @@
-package TestTypeChar;
+package TestType;
 
 import java.util.HashMap;
 

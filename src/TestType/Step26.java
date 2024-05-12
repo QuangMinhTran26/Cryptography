@@ -1,4 +1,4 @@
-package TestTypeChar;
+package TestType;
 
 public class Step26 {
     public static int step26(int num) {
