@@ -1,7 +1,5 @@
 package Framework;
 
-
-@SuppressWarnings("DuplicatedCode")
 public class CaesarCipher implements Cipher<Integer> {
     public String alphabeticCheck(String input) {
         for (int i = 0; i < input.length(); i++) {

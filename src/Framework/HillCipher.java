@@ -1,6 +1,5 @@
 package Framework;
 
-@SuppressWarnings("DuplicatedCode")
 public class HillCipher implements Cipher<int[][]> {
 
     // when a number is < -26, then add a certain amount of step 26 so that it becomes >= 0
