@@ -3,7 +3,7 @@ package Framework;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Friedman implements keyLengthInterface<String> {
+public class Friedman implements KeyLengthInterface<String> {
 
     @Override
     public double determineKeyLength(String ciphertext) {

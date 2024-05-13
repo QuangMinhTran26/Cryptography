@@ -1,5 +1,5 @@
 package Framework;
 
-public interface keyLengthInterface<T> {
+public interface KeyLengthInterface<T> {
     double determineKeyLength(T object);
 }

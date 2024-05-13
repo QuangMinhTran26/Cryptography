@@ -2,7 +2,7 @@ package Framework;
 
 import java.util.*;
 
-public class Kasiski implements keyLengthInterface<Map<String, List<Integer>>> {
+public class Kasiski implements KeyLengthInterface<Map<String, List<Integer>>> {
 
     public Map<String, List<Integer>> kasiskiTest(String text, int sequenceLength) {
         Map<String, List<Integer>> results = new HashMap<>();
