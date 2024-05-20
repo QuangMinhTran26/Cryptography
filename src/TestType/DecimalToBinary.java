@@ -16,6 +16,8 @@ public class DecimalToBinary {
         return result.toString();
     }
 
+    // Integer.toBinaryString(): built-in, works really well
+
     public static void main(String[] args) {
         System.out.print(intToBinary(413546843));
     }
