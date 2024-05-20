@@ -3,15 +3,15 @@ package TestType;
 public class DecimalToBinary {
 
     public static String intToBinary(int num) {
-        StringBuilder s = new StringBuilder();
+        StringBuilder lastDigitToFirst = new StringBuilder();
         while (num > 0) {
-            s.append(num % 2);
+            lastDigitToFirst.append(num % 2);
             num = num / 2;
         }
 
         StringBuilder result = new StringBuilder();
-        for (int i = s.length() - 1; i >= 0; i--) {
-            result.append(s.charAt(i));
+        for (int i = lastDigitToFirst.length() - 1; i >= 0; i--) {
+            result.append(lastDigitToFirst.charAt(i));
         }
         return result.toString();
     }
