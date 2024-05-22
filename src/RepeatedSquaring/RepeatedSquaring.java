@@ -26,20 +26,19 @@ public class RepeatedSquaring {
         return result;
     }
 
-    public double repeatedSquaring(double a, int b, double m) {
-        String binary = intToBinary(b);
-        double[] binaryArray = stringToIntArray(binary);
+    public double repeatedSquaring(double a, double b, double m) {
+        String binaryRep = intToBinary((int) b);
+        double[] binaryArray = stringToIntArray(binaryRep);
         double result = 1;
         for (int i = 0; i < binaryArray.length; i++) {
-            double first = Math.pow(a, i);
-            result = (Math.pow(first, 2) * Math.pow(a, binaryArray[i]));
-
+            result = result * result * Math.pow(a, binaryArray[i]);
+            result = result % m;
         }
-        return result % m;
+        return result;
     }
 
     public static void main(String[] args) {
         RepeatedSquaring testObject = new RepeatedSquaring();
-        System.out.print(testObject.repeatedSquaring(7, 8, 853));
+        System.out.print(testObject.repeatedSquaring(27, 41, 77));
     }
 }
