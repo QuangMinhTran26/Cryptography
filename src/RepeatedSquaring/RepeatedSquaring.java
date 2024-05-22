@@ -37,8 +37,8 @@ public class RepeatedSquaring {
         return result;
     }
 
-    public static void main(String[] args) {
-        RepeatedSquaring testObject = new RepeatedSquaring();
-        System.out.print(testObject.repeatedSquaring(27, 41, 77));
-    }
+//    public static void main(String[] args) {
+//        RepeatedSquaring testObject = new RepeatedSquaring();
+//        System.out.print(testObject.repeatedSquaring(700, 12341, 12341));
+//    }
 }
