@@ -21,7 +21,8 @@ public class RepeatedSquaring {
     public double[] stringToIntArray(String input) {
         double[] result = new double[input.length()];
         for (int i = 0; i < result.length; i++) {
-            result[i] = Integer.parseInt(String.valueOf(input.charAt(i)));
+            result[i] = Character.getNumericValue(input.charAt(i));
+//          result[i] = Integer.parseInt(String.valueOf(input.charAt(i)));
         }
         return result;
     }
