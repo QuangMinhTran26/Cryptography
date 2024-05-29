@@ -66,10 +66,8 @@ public class SBox {
     }
 
     public int rowFinder(StringBuilder input) {
-        if (input.charAt(0) == '0') {
-            input.deleteCharAt(0);
-            return Integer.parseInt(input.toString());
-        }
+        if (input.toString().equals("01"))
+            return 1;
         return Integer.parseInt(input.toString(), 2);
     }
 
