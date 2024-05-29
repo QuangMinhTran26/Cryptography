@@ -30,10 +30,12 @@ public class ThreeDimensionalArray {
             for (int j = 0; j < array[i].length; j++) {
                 for (int k = 0; k < array[i][j].length; k++) {
                     array[i][j][k] = count;
-                    System.out.println("Element at [" + i + "][" + j + "][" + k + "] = " + array[i][j][k]);
+                    System.out.print(array[i][j][k] + " ");
                     count++;
                 }
+                System.out.println();
             }
+            System.out.println();
         }
     }
 }
