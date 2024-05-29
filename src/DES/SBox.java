@@ -44,16 +44,6 @@ public class SBox {
                     {2, 1, 14, 7, 4, 10, 8, 13, 15, 12, 9, 0, 3, 5, 6, 11}}
     };
 
-
-    public static int countDigit(int n) {
-        int count = 0;
-        while (n != 0) {
-            n /= 10;
-            count++;
-        }
-        return count;
-    }
-
     public int sBoxCalculation(String inputBit, int boxNum) {
 
         // If there is a 0 at the front, Integer.toBinaryString(inputBit) returns result without it
@@ -88,9 +78,12 @@ public class SBox {
     }
 
 
-    public static void main(String[] args) {
-        SBox testObject = new SBox();
-        System.out.println(testObject.sBoxCalculation("011101",
-                3));
-    }
+//    public static void main(String[] args) {
+//        SBox testObject = new SBox();
+//        System.out.println(testObject.sBoxCalculation("011101", 3));
+//        System.out.println(testObject.sBoxCalculation("100111", 1));
+//        System.out.println(testObject.sBoxCalculation("011001", 3));
+//        System.out.println(testObject.sBoxCalculation("110011", 5));
+//        System.out.println(testObject.sBoxCalculation("000111", 7));
+//    }
 }
