@@ -50,31 +50,19 @@ public class SBox {
 
         int length = inputBit.length();
 
-        StringBuilder x = new StringBuilder();
-        x.append(inputBit.charAt(0)).append(inputBit.charAt(length - 1));
+        String x = String.valueOf(inputBit.charAt(0) + inputBit.charAt(length - 1));
 
         StringBuilder y = new StringBuilder();
         for (int i = 1; i <= length - 2; i++) {
             y.append(inputBit.charAt(i));
         }
 
-        int row = rowFinder(x);
+        int row = Integer.parseInt(x, 2);
 
-        int column = columnFinder(y);
+        int column = Integer.parseInt(y.toString(), 2);
 
         return boxes[boxNum - 1][row][column];
     }
-
-    public int rowFinder(StringBuilder input) {
-        if (input.toString().equals("01"))
-            return 1;
-        return Integer.parseInt(input.toString(), 2);
-    }
-
-    public int columnFinder(StringBuilder input) {
-        return Integer.parseInt(input.toString(), 2);
-    }
-
 
 //    public static void main(String[] args) {
 //        SBox testObject = new SBox();
