@@ -1,6 +1,7 @@
 package TestType;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class FrequencyAnalysis {
     private static void frequencyReport(String input) {
@@ -15,10 +16,10 @@ public class FrequencyAnalysis {
                 occurrence.put(c, 1);
             }
         }
-//        for (char c : strArray) {
-//            percentage.put(c, (float) occurrence.get(c) * 100 / 310);
-//        }
-        for (HashMap.Entry entry : percentage.entrySet()) {
+        for (char c : strArray) {
+            percentage.put(c, (float) occurrence.get(c) * 100 / 310);
+        }
+        for (Map.Entry<Character, Float> entry : percentage.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue());
         }
         System.out.println(" ");
