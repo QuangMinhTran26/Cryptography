@@ -15,22 +15,22 @@ class SBoxTest {
 
     @Test
     void sBoxCalculation_a() {
-        assertEquals(2, obj.sBoxCalculation("100111", 1));
+        assertEquals(2, obj.sBoxCalculation(100111, 1));
     }
 
     @Test
     void sBoxCalculation_b() {
-        assertEquals(12, obj.sBoxCalculation("011001", 3));
+        assertEquals(12, obj.sBoxCalculation(011001, 3));
     }
 
     @Test
     void sBoxCalculation_c() {
-        assertEquals(15, obj.sBoxCalculation("110011", 5));
+        assertEquals(15, obj.sBoxCalculation(110011, 5));
     }
 
     @Test
     void sBoxCalculation_d() {
-        assertEquals(7, obj.sBoxCalculation("000111", 7));
+        assertEquals(7, obj.sBoxCalculation(000111, 7));
     }
 
 }

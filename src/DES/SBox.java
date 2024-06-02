@@ -44,17 +44,24 @@ public class SBox {
                     {2, 1, 14, 7, 4, 10, 8, 13, 15, 12, 9, 0, 3, 5, 6, 11}}
     };
 
-    public int sBoxCalculation(String inputBit, int boxNum) {
+    public int sBoxCalculation(int inputBit, int boxNum) {
 
         // If there is a 0 at the front, Integer.toBinaryString(inputBit) returns result without it
+        StringBuilder stringBit;
+        if (inputBit < 10000) {
+            stringBit = new StringBuilder(Integer.toOctalString(inputBit));
+        } else stringBit = new StringBuilder("" + inputBit);
 
-        int length = inputBit.length();
+        while (stringBit.length() < 6) {
+            stringBit.insert(0, '0');
+            if (stringBit.length() == 6) break;
+        }
 
-        String x = String.valueOf(inputBit.charAt(0) + inputBit.charAt(length - 1));
+        String x = String.valueOf(stringBit.charAt(0)) + stringBit.charAt(stringBit.length() - 1);
 
         StringBuilder y = new StringBuilder();
-        for (int i = 1; i <= length - 2; i++) {
-            y.append(inputBit.charAt(i));
+        for (int i = 1; i <= stringBit.length() - 2; i++) {
+            y.append(stringBit.charAt(i));
         }
 
         int row = Integer.parseInt(x, 2);
@@ -64,12 +71,12 @@ public class SBox {
         return boxes[boxNum - 1][row][column];
     }
 
-//    public static void main(String[] args) {
-//        SBox testObject = new SBox();
-//        System.out.println(testObject.sBoxCalculation("011101", 3));
-//        System.out.println(testObject.sBoxCalculation("100111", 1));
-//        System.out.println(testObject.sBoxCalculation("011001", 3));
-//        System.out.println(testObject.sBoxCalculation("110011", 5));
-//        System.out.println(testObject.sBoxCalculation("000111", 7));
-//    }
+    public static void main(String[] args) {
+        SBox testObject = new SBox();
+        System.out.println(testObject.sBoxCalculation(011101, 3));
+        System.out.println(testObject.sBoxCalculation(100111, 1));
+        System.out.println(testObject.sBoxCalculation(011001, 3));
+        System.out.println(testObject.sBoxCalculation(110011, 5));
+        System.out.println(testObject.sBoxCalculation(000111, 7));
+    }
 }
