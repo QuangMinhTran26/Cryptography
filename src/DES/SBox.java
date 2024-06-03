@@ -71,12 +71,12 @@ public class SBox {
         return boxes[boxNum - 1][row][column];
     }
 
-    public static void main(String[] args) {
-        SBox testObject = new SBox();
-        System.out.println(testObject.sBoxCalculation(011101, 3));
-        System.out.println(testObject.sBoxCalculation(100111, 1));
-        System.out.println(testObject.sBoxCalculation(011001, 3));
-        System.out.println(testObject.sBoxCalculation(110011, 5));
-        System.out.println(testObject.sBoxCalculation(000111, 7));
-    }
+//    public static void main(String[] args) {
+//        SBox testObject = new SBox();
+//        System.out.println(testObject.sBoxCalculation(011101, 3));
+//        System.out.println(testObject.sBoxCalculation(100111, 1));
+//        System.out.println(testObject.sBoxCalculation(011001, 3));
+//        System.out.println(testObject.sBoxCalculation(110011, 5));
+//        System.out.println(testObject.sBoxCalculation(000111, 7));
+//    }
 }

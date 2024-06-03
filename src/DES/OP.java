@@ -2,7 +2,7 @@ package DES;
 
 
 public class OP {
-
+    //TODO: array parameter
     private static final int[][][] boxes = {
             //Sbox 1
             {
