@@ -6,15 +6,17 @@ import java.util.Map;
 
 public class KeyFinder {
     //TODO: every character at index i, i + keyLength has to packed into one element of divider array
-    public String keyDetermination(String input, int keyLength) {
-        String result = "";
-        char[] inputArr = input.toCharArray();
-        String[] divider = new String[input.length() / keyLength];
-        for (int i = 0; i < input.length(); i++) {
+    public static String[] group(String input, int keyLength) {
+        String[] groupedChars = new String[keyLength];
 
-
+        for (int i = 0; i < keyLength; i++) {
+            StringBuilder group = new StringBuilder();
+            for (int j = i; j < input.length(); j = j + keyLength) {
+                group.append(input.charAt(j));
+            }
+            groupedChars[i] = group.toString();
         }
-        return result;
+        return groupedChars;
     }
 
 
@@ -34,5 +36,12 @@ public class KeyFinder {
         return null;
     }
 
+    public static void main(String[] args) {
+        String test = "UYEBVGMPFXAVUUAETPARWJCKHMUTBGUUAETPARWQKWECAPQNXLGMZGFPWTBCEGFZTGULUAIPPGOBTNNCZXITP";
+        String[] result = group(test, 6);
+        for (int i = 0; i < result.length; i++) {
+            System.out.print(result[i] + " ");
+        }
+    }
 
 }
