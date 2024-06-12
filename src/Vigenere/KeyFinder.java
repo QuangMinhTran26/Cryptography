@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class KeyFinder {
     //TODO: every character at index i, i + keyLength has to packed into one element of divider array
-    public static String[] group(String input, int keyLength) {
+    public String[] group(String input, int keyLength) {
         String[] groupedChars = new String[keyLength];
 
         for (int i = 0; i < keyLength; i++) {
@@ -19,6 +19,24 @@ public class KeyFinder {
         return groupedChars;
     }
 
+    //Vigenere decryption knowing the most common letter is 'E'
+    public String decrypt(String input) {
+        StringBuilder decodedText = new StringBuilder();
+        for (int i = 0; i < input.length(); i++) {
+            decodedText.append((char) ((input.charAt(i) - 'E' + 26) % 26 + 65));
+        }
+        return decodedText.toString();
+
+    }
+
+    public String keyDetermination(String input, int keyLength) {
+        String[] groupEveryNthCharacter = group(input, keyLength);
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < groupEveryNthCharacter.length; i++) {
+            result.append(charFreqAnalysis(groupEveryNthCharacter[i]));
+        }
+        return decrypt((result.toString()));
+    }
 
     public Character charFreqAnalysis(String input) {
         HashMap<Character, Double> freqTable = new HashMap<>();
@@ -37,11 +55,10 @@ public class KeyFinder {
     }
 
     public static void main(String[] args) {
-        String test = "UYEBVGMPFXAVUUAETPARWJCKHMUTBGUUAETPARWQKWECAPQNXLGMZGFPWTBCEGFZTGULUAIPPGOBTNNCZXITP";
-        String[] result = group(test, 6);
-        for (int i = 0; i < result.length; i++) {
-            System.out.print(result[i] + " ");
-        }
+        KeyFinder test = new KeyFinder();
+        String cipherText = "LWFCOSYJYWTWHRYKUGKLHLLOMGMXLPYNABVJJLAWTCVGALUTQBUXLQUKOVZCLRBSNSETPRYPMFDTLEOXSSJILPFLGBULHIBJQBUXJLBAQFJEYIWZQBRTOILLEWTWKMYKQOIBLIOFESITYBMLMRKVSEOTFAZGDIHFUQYTBGBKMUVLPVBSNSETPRYOUFBAPGBKOVNTYITWUHMDYYHKMPVGEAYFZKZGKELSGTMDYFYJQWKTAWYAZKFASIHXPOECTYYKESELPVTMQFJIBRMWDSRCNWNVMJFGEEVDQUVCPGBKFSYTOMYJVSKOAZIJQITWCSYDXWXPUKMLRFVXDMYKASKLHAYAXWTWHRYLIOJMNPUMNSLCKMBJZWTWARYAZWTWZXYZQVZTYSBFQOEVZXQWUZZROINOMGEXJLNNQFXTZWYFTOSTEMWZTOSTUMWZFJVGNIMKQBUPZWCUTBZROXBAQFSXUAYYQBUTZAYYQGUTYZIJYWIAPIALECESLVHPISXTUHYKISXTZHYJNSITPXMZUBKTYQCJXWVVAMWZTOSTUMWZFJVGNIMKQBUPZWQADPVGLMNKJGVXALOFPSIIQEBJQBXTNIHVUSJTTEMUTWETUOUWYDWTUMWZTOSTUMWZFJVGNIMKQBUPZWMAQLJTPXBMZRVGANUZDSEXOVYSDAVTUWWZUQBTUYGMZGQJGILKFCVGLROFPBRROICFQAAPOVBMZRVGABXWEYIXLKYKTOSTPGBFUQYICILYQGJTUAUKPOJLPGBLUUJILMMLIWIHPRXFAQYWPILDMGJIBRMPTSLILRUUTHUXLWYJMFDTLZIFTWVGHYMWUBVQVXMUTOWIZGBAOYVCSEMKFIEHOIOLQBRROXRVUSJTOSYZXSEOBQYJLWKILVHTDWEVLRBWGHVCHGBLISISLRQADRZTZIBSXZVCHYMWDRVMZXUZXIESZXYAZSIQLFYFXOJHLRMAQGFASIHMZGYDLVYFHCDGVXYFWSICIMMRGAJROAUJLSEMOMGEQZYTBXYFMQYIDILVQBNXYHUXGSIHVVAWZRRHZWCWZWVBHPMNQFXTZWYFPOJXZXTAABLCKBQADVRQLREWUBVPUKML";
+        System.out.print(test.keyDetermination(cipherText, 8));
+
     }
 
 }
